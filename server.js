@@ -1,8 +1,18 @@
 import { ApolloServer, gql  } from "apollo-server"
 
 const typeDefs = gql`
+  type User {
+    id: ID
+    username: string
+  }
+  type Tweet {
+    id: ID
+    text: string
+    author: User
+  }
   type Query {
-    text: String
+    allTweets: [Tweet]
+    tweet(id: ID): Tweet
   }
 `;
 
