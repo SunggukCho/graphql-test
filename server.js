@@ -27,7 +27,7 @@ const typeDefs = gql`
     tweet(id: ID!): Tweet
   }
   type Mutation {
-    postTweet(text: String, userId: ID!): Tweet
+    postTweet(text: String!, userId: ID!): Tweet
     deleteTweet(id: ID!): Boolean
   }
 `;
@@ -41,6 +41,16 @@ const resolvers = {
     tweet(root, { id }) {
       console.log(`tweet id: ${id}`)
       return tweets.find(tweet => tweet.id === id)
+    }
+  },
+  Mutation: {
+    postTweet(_, { text, userId }) {
+      const newTweet = {
+        id: tweets.length + 1,
+        text
+      }
+      tweets.push(newTweet)
+      return newTweet
     }
   }
 }
